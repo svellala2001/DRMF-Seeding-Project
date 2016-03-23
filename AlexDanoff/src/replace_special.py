@@ -250,14 +250,9 @@ def _replace_i(words):
             else:  # neither of the characters surrounding the "i" are alphabetic, replace
 
                 replacement = r'\iunit'
-        # do not search in the replaced part
-        ilocOld=iloc
-        iloc = words.find("i", iloc + len(replacement))
         # print("Surrounding: {0} - replacement made: {1}".format(surrounding, replacement != "i"))
-        if ilocOld == -1:
-            break
-        words = words[:ilocOld] + replacement + words[ilocOld + 1:]
-
+        words = words[:iloc] + replacement + words[iloc + 1:]
+        iloc = words.find("i", iloc + len(replacement))
     return words
 
 
