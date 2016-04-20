@@ -122,7 +122,8 @@ def replace_special(_list):
             iloc = _list[i].find("i", iloc + 1, len(_list[i]))
     return _list
 
-main()
+if __name__ == "__main__":
+    main()
 
 
 
