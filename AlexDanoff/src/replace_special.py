@@ -4,6 +4,7 @@ import math_mode
 import re
 import sys
 
+
 # for compatibility with Python 3
 try:
     from itertools import izip
@@ -24,31 +25,34 @@ def main():
         ofname = sys.argv[2]
 
     string = open(fname).read()
-    ranges = math_mode.find_math_ranges(string,"DRMF" in open(fname).read())
-    list = string_to_list(string, ranges)
 
-    writeout(ofname, list_to_string(replace_special(list)))
+    writeout(ofname, replace_special(list))
 
 def string_to_list(_line, _list):
 
     _output = []
 
-    for i in range(0, len(_list)):
-        if i == 0:
+    if _list != []:
 
-            _output.append(_line[0:_list[i][0]])
+        for i in range(0, len(_list)):
+            if i == 0:
 
-        else:
+                _output.append(_line[0:_list[i][0]])
 
-            _output.append(_line[_list[i-1][1]:_list[i][0]])
+            else:
 
-        _output.append(_line[_list[i][0]:_list[i][1]])
+                _output.append(_line[_list[i-1][1]:_list[i][0]])
 
-    if len(_line) != _list[i][1] + 1:
+            _output.append(_line[_list[i][0]:_list[i][1]])
 
-        length = len(_line)
-        _output.append(_line[_list[i][1]:length])
+        print(_list)
+        if len(_line) != _list[len(_list) - 1][1] + 1:
 
+            length = len(_line)
+            _output.append(_line[_list[i][1]:length])
+
+    else:
+        _output.append(_line)
     return _output
 
 def list_to_string(list):
@@ -60,8 +64,9 @@ def list_to_string(list):
 
     return output
 
-def replace_special(_list):
-
+def replace_special(string):
+    ranges = math_mode.find_math_ranges(string,"DRMF" in string)
+    _list = string_to_list(string, ranges)
     for i in range(1, len(_list), 2):
 
         iloc = _list[i].find("i", 0, len(_list[i]))
@@ -120,7 +125,7 @@ def replace_special(_list):
                 iloc = _list[i].find("i", iloc + 1, len(_list[i]))
                 iloc = _list[i].find("i", iloc + 1, len(_list[i]))
             iloc = _list[i].find("i", iloc + 1, len(_list[i]))
-    return _list
+    return list_to_string(_list)
 
 if __name__ == "__main__":
     main()
