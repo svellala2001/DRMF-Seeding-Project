@@ -152,7 +152,8 @@ def find_math_ranges(string,drmf):
                         "\\substitution"
                         "\\drmfnote{",
                         "\\drmfname{",
-                        "\\proof{"])
+                        "\\proof{",
+                         "\\label{"])
     ranges = []
     parse_non_math(string, 0, ranges)
     return ranges[:]
