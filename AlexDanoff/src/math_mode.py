@@ -1,4 +1,4 @@
-mathStart = {"\\[": "\\]",
+math_start = {"\\[": "\\]",
              "\\(": "\\)",
              "$$": "$$",
              "$": "$",
@@ -9,7 +9,7 @@ mathStart = {"\\[": "\\]",
              "\\begin{multline}": "\\end{multline}",
              "\\begin{multline*}": "\\end{multline*}"}
 
-mathEnd = ["\\hbox{",
+math_end = ["\\hbox{",
            "\\mbox{",
            "\\text{"]
 
@@ -41,7 +41,7 @@ def first_delim(string, enter=True):
     :return: The delimiter that first appears in the string.
     """
     minm = ["\\hbox{", "\\]"][enter]
-    for delim in [mathEnd, mathStart][enter]:
+    for delim in [math_end, math_start][enter]:
         i = find_first(string, delim)
         if i != -1 and i < find_first(string, minm) or minm not in string:
             minm = delim
@@ -57,7 +57,7 @@ def does_exit(string):
     :param string: The string to check.
     :return: Whether the string starts with a text mode delimiter.
     """
-    return any(string.startswith(delim) for delim in mathEnd)
+    return any(string.startswith(delim) for delim in math_end)
 
 
 def does_enter(string):
@@ -67,7 +67,7 @@ def does_enter(string):
     :param string: The string to check.
     :return: Whether the string starts with a math mode delimiter.
     """
-    return any(string.startswith(delim) for delim in mathStart)
+    return any(string.startswith(delim) for delim in math_start)
 
 
 def parse_math(string, start, ranges):
@@ -95,10 +95,10 @@ def parse_math(string, start, ranges):
                     ranges.append((begin, start + i))
                 i += parse_non_math(string[i:], start + i, ranges)
                 begin = start + i
-            if string[i:].startswith(mathStart[delim]):
+            if string[i:].startswith(math_start[delim]):
                 if begin != start + i:
                     ranges.append((begin, start + i))
-                return i + len(mathStart[delim]) - 1
+                return i + len(math_start[delim]) - 1
         i += 1
     return i
 
@@ -145,10 +145,10 @@ def find_math_ranges(string,drmf):
     :param string: The string to search within.
     :return: A list of tuples denoting math mode ranges.
     """
-    global mathEnd
+    global math_end
     if drmf == True:
         string = string.replace("\\drmfnote","\\drmfname")
-        mathEnd.extend(["\\constraint{",
+        math_end.extend(["\\constraint{",
                         "\\substitution"
                         "\\drmfnote{",
                         "\\drmfname{",

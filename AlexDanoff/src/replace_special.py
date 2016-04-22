@@ -46,7 +46,7 @@ def string_to_list(_line, _list):
             _output.append(_line[_list[i][0]:_list[i][1]])
 
         print(_list)
-        if len(_line) != _list[len(_list) - 1][1] + 1:
+        if len(_line) != _list[len(i)][1] + 1:
 
             length = len(_line)
             _output.append(_line[_list[i][1]:length])
@@ -101,19 +101,13 @@ def replace_special(string):
             # at least one of the characters surrounding "i" is not alphabetic, we may need to replace
             if not (surrounding[0].isalpha() and surrounding[1].isalpha()):
                 # one (but not both) of the surrounding characters IS alphabetic, may need to replace
-                if surrounding[0].isalpha != surrounding[1].isalpha:
-                    # character before is alphabetic
-                    if surrounding[0].isalpha():
-                        # character before is a vowel, replace
-                        if surrounding[0] in "aeiou":
-                            replacement = r'\iunit'
+                if surrounding[0].isalpha != surrounding[1].isalpha and surrounding[0].isalpha() and surrounding[0] in "aeiou":
+                    replacement = r'\iunit'
 
-                    else:  # character after is alphabetic
-                        # make sure we're not starting a macro
-                        if surrounding[0] != "\\":
-                            replacement = r'\iunit '
+                if surrounding[0].isalpha != surrounding[1].isalpha and not surrounding[0].isalpha and surrounding[0] != "\\":
+                    replacement = r'\iunit '
 
-                else:  # neither of the characters surrounding the "i" are alphabetic, replace
+                if surrounding[0].isalpha == surrounding[1].isalpha:  # neither of the characters surrounding the "i" are alphabetic, replace
                     replacement = r'\iunit'
 
             if "\iunit" in replacement and surrounding[1] == " ":
