@@ -26,7 +26,7 @@ def main():
 
     string = open(fname).read()
 
-    writeout(ofname, replace_special(list))
+    writeout(ofname, replace_special(string))
 
 def string_to_list(_line, _list):
 
@@ -45,8 +45,7 @@ def string_to_list(_line, _list):
 
             _output.append(_line[_list[i][0]:_list[i][1]])
 
-        print(_list)
-        if len(_line) != _list[len(i)][1] + 1:
+        if len(_line) != _list[i][1] + 1:
 
             length = len(_line)
             _output.append(_line[_list[i][1]:length])
