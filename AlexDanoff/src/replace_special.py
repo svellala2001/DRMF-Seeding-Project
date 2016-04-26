@@ -45,6 +45,7 @@ def string_to_list(_line, _list):
 
             _output.append(_line[_list[i][0]:_list[i][1]])
 
+        print(type(_line))
         if len(_line) != _list[i][1] + 1:
 
             length = len(_line)
@@ -97,6 +98,10 @@ def replace_special(string):
                 else:
 
                     surrounding.insert(0,"\n")
+
+            if len(surrounding) == 0:
+                surrounding = ["\n","\n"]
+
             # at least one of the characters surrounding "i" is not alphabetic, we may need to replace
             if not (surrounding[0].isalpha() and surrounding[1].isalpha()):
                 # one (but not both) of the surrounding characters IS alphabetic, may need to replace
@@ -109,7 +114,7 @@ def replace_special(string):
                 if surrounding[0].isalpha == surrounding[1].isalpha:  # neither of the characters surrounding the "i" are alphabetic, replace
                     replacement = r'\iunit'
 
-                if (surrounding[0] == " " and surrounding[1] == "}") or (surrounding[0] == "{" and surrounding[1] == " "):
+                if (surrounding[0] == " " and surrounding[1] in "}/") or (surrounding[0] in "{/" and surrounding[1] == " "):
                     replacement = r'\iunit'
 
             if "\iunit" in replacement and surrounding[1] == " ":
@@ -125,6 +130,8 @@ def replace_special(string):
 
 if __name__ == "__main__":
     main()
+
+
 
 
 
