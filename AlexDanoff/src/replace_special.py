@@ -109,7 +109,7 @@ def replace_special(string):
                 if surrounding[0].isalpha == surrounding[1].isalpha:  # neither of the characters surrounding the "i" are alphabetic, replace
                     replacement = r'\iunit'
 
-                if surrounding[0] == " " and surrounding[1] == "}":
+                if (surrounding[0] == " " and surrounding[1] == "}") or (surrounding[0] == "{" and surrounding[1] == " "):
                     replacement = r'\iunit'
 
             if "\iunit" in replacement and surrounding[1] == " ":
