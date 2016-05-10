@@ -115,7 +115,7 @@ def replace_special(string):
                     replacement = r'\iunit '
 
                 if surrounding[0].isalpha() == surrounding[1].isalpha():  # neither of the characters surrounding the "i" are alphabetic, replace
-                    replacement = r'\iunit'
+                    replacement = r'\iunit '
 
             if "\iunit" in replacement and surrounding[1] == " ":
                 replacement = r'\iunit'
